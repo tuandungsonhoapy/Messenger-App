@@ -19,7 +19,7 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: 'NextJS App',
+  title: 'Application',
   description: 'Build a messenger app'
 }
 
