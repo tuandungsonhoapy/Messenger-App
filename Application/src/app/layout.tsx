@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
-import { Roboto } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import './globals.css'
+import { ThemeProvider } from '@/components/theme-provider'
+import Header from '@/layouts/header'
+import ToastTheme from '@/app/toast-theme'
 
 // const geistSans = localFont({
 //   src: './fonts/GeistVF.woff',
@@ -13,13 +16,12 @@ import './globals.css'
 //   weight: '100 900'
 // })
 
-const roboto = Roboto({
-  subsets: ['vietnamese'],
-  weight: ['300', '700']
+const inter = Inter({
+  subsets: ['vietnamese']
 })
 
 export const metadata: Metadata = {
-  title: 'NextJS App',
+  title: 'Application',
   description: 'Build a messenger app'
 }
 
@@ -29,8 +31,19 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${roboto.className} antialiased`}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          {children}
+          <ToastTheme />
+        </ThemeProvider>
+      </body>
     </html>
   )
 }
