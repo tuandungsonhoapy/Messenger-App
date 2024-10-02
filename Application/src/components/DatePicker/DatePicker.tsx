@@ -12,6 +12,7 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@/components/ui/popover'
+import { useEffect } from 'react'
 
 interface DatePickerProps {
   onDateChange: (date: Date | undefined) => void
@@ -20,9 +21,12 @@ interface DatePickerProps {
 export function DatePicker({ onDateChange }: DatePickerProps) {
   const [date, setDate] = React.useState<Date>()
 
-  React.useEffect(() => {
-    onDateChange(date)
-  }, [date, onDateChange])
+  useEffect(() => {
+    if (date) {
+      onDateChange(date)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [date])
 
   return (
     <Popover>
@@ -42,7 +46,7 @@ export function DatePicker({ onDateChange }: DatePickerProps) {
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={(date) => setDate(date)}
           initialFocus
         />
       </PopoverContent>
